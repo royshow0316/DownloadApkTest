@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
@@ -35,6 +36,7 @@ public class DownloadCompleteReceiver extends BroadcastReceiver {
         if (cacheDownLoadId == downLoadId) {
             Intent install = new Intent(Intent.ACTION_VIEW);
             File apkFile = queryDownloadedApk(context);
+//            File apkFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath() + File.separator + queryFile.getName());
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {   //Android 7.0 需要透過FileProvider來取得APK檔的Uri
                 install.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 Uri contentUri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".fileProvider", apkFile);
